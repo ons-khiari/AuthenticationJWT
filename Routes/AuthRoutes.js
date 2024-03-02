@@ -4,13 +4,23 @@ const { authMiddleware, adminMiddleware } = require('../Middlewares/AuthMiddlewa
 const {
     register,
     login,
-    deleteUser
+    deleteUser,
+    handleRefreshToken,
+    logout,
+    updatePassword,
+    forgotPasswordToken,
+    resetPassword
 } = require('../Controllers/AuthController');
 
 
 router.post('/register', register)
 router.post('/login', login)
+router.get('/logout', logout)
+router.post('/forgotpasswordtoken', forgotPasswordToken)
+router.put('/passwordReset', authMiddleware, updatePassword)
+router.put('/passwordReset/:token', resetPassword)
 router.delete('/delete/:id', authMiddleware, adminMiddleware, deleteUser)
+router.get('/refresh_token', handleRefreshToken)
 
 
 module.exports = router
